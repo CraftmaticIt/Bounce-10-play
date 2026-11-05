@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0A0820"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Bounce 10">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>Bounce 10</title>
+<meta name="description" content="Bounce, merge and chain glowing number balls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap">
+<style>
+:root {
+--bg: #0A0820; --panel: #160F36; --fg: #F2F0FF; --dim: #C9C3FF; --cyan: #34F0FF; --magenta: #FF4FD8; --gold: #FFD23D;
+--font-display: "Fredoka", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+color-scheme: dark;
+}
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); overflow: hidden; overscroll-behavior: none; }
+body { font-family: var(--font-display); -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#game { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; background: var(--bg); }
+#insets { position: fixed; top: 0; left: 0; width: 0; visibility: hidden; pointer-events: none;
+padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+#ask { position: fixed; inset: 0; z-index: 6; display: grid; place-items: center; background: rgba(6, 4, 20, 0.8);
+padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); margin: 0; }
+#ask[hidden] { display: none; }
+#ask .box { width: min(100%, 360px); display: grid; gap: 12px; padding: 24px; border-radius: 24px;
+background: linear-gradient(var(--panel), #120E2C); border: 1.5px solid var(--magenta); box-shadow: 0 0 24px rgba(255, 79, 216, 0.25); }
+#ask h2 { margin: 0; font-size: 1.25rem; text-align: center; text-wrap: balance; }
+#ask p { margin: 0; font-size: .85rem; color: var(--dim); text-align: center; min-height: 1em; white-space: pre-line; }
+#ask #ask-error { color: var(--gold); }
+#ask input { font: 600 1.2rem var(--font-display); text-align: center; padding: 12px; border-radius: 14px; color: var(--fg);
+background: rgba(200, 200, 255, 0.1); border: 1.5px solid rgba(190, 200, 255, 0.45); -webkit-user-select: text; user-select: text; }
+#ask .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#ask button { font: 700 1rem var(--font-display); color: var(--fg); padding: 12px; border-radius: 999px; cursor: pointer;
+border: 1.5px solid rgba(190, 200, 255, 0.45); background: rgba(200, 200, 255, 0.12); }
+#ask button[type=submit] { border: 0; background: linear-gradient(90deg, #1FB6FF, #C23DFF); }
+#ask input[hidden], #ask button[hidden] { display: none; }
+#ask button.link { border: 0; background: none; padding: 4px; font-size: .9rem; color: var(--cyan); text-decoration: underline; }
+#ask button:focus-visible, #ask input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+</style>
+</head><body><canvas id="game" aria-label="Bounce 10 game"></canvas>
+<div id="insets"></div>
+<form id="ask" hidden>
+<div class="box">
+<h2 id="ask-title"></h2>
+<p id="ask-hint"></p>
+<input id="ask-input" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="ask-title">
+<input id="ask-pin" type="password" autocomplete="off" maxlength="64" hidden>
+<p id="ask-error" role="alert"></p>
+<div class="row"><button type="button" id="ask-cancel"></button><button type="submit" id="ask-ok"></button></div>
+<button type="button" id="ask-extra" class="link" hidden></button>
+</div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="g.js?v=ba53d3ee23"></script></body></html>
